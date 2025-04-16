@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Training App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/schedule">Schedule</a> |
+        <a href="/bookings">Bookings</a>
+        </nav>
+    <h1>Welcome to the Online Training App!</h1>
+    <p>
+        This application helps you book and manage your online and in-person training sessions.
+    </p>
+    <h2>Get Started:</h2>
+    <ul>
+        <li><a href="/schedule">View Class Schedule</a></li>
+        <li><a href="/book/1">Book a Class</a> (Example - Class ID 1)</li>
+        </ul>
+</body>
+</html>

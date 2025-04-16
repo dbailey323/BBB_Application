@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/schedule">Schedule</a> |
+        <a href="/bookings">Bookings</a>
+        </nav>
+    <h1>Class Schedule</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flashes">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <ul>
+        {% for class_item in schedule %}
+        <li>
+            <strong>{{ class_item.name }}</strong>
+            <br>
+            Date: {{ class_item.date }}
+            <br>
+            Time: {{ class_item.time }}
+            <br>
+            Location: {{ class_item.location }}
+            <br>
+            Capacity: {{ class_item.capacity }}
+            <br>
+            Booked: {{ class_item.booked|length }}
+            <br>
+            Spots Available: {{ class_item.capacity - class_item.booked|length }}
+            <br>
+            <a href="/book/{{ class_item.id }}">Book Now</a>
+        </li>
+        <hr>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

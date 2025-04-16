@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bookings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/schedule">Schedule</a> |
+        <a href="/bookings">Bookings</a>
+        </nav>
+    <h1>Bookings</h1>
+
+    <form action="/bookings" method="GET">
+        <label for="filter_class_name">Filter by Class Name:</label>
+        <input type="text" id="filter_class_name" name="filter_class_name">
+
+        <label for="filter_date">Filter by Date (YYYY-MM-DD):</label>
+        <input type="text" id="filter_date" name="filter_date">
+
+        <input type="submit" value="Filter">
+    </form>
+
+    {% for class_item in schedule %}
+    <h2>{{ class_item.name }} - {{ class_item.date }} at {{ class_item.time }}</h2>
+    {% if class_item.booked|length > 0 %}
+    <table>
+        <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Chest pain during exercise?</th>
+        <th>Joint problems?</th>
+        <th>Medication for heart condition?</th>
+    </tr>
+</thead>
+        <tbody>
+    {% for booking in class_item.booked %}
+    <tr>
+        <td>{{ booking.name }}</td>
+        <td>{{ booking.email }}</td>
+        <td>{{ booking.phone }}</td>
+        <td title="{{ booking.question1 }}">{{ booking.question1 }}</td>
+        <td title="{{ booking.question2 }}">{{ booking.question2 }}</td>
+        <td title="{{ booking.question3 }}">{{ booking.question3 }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+    </table>
+    {% else %}
+    <p class="no-bookings">No bookings yet for this class.</p>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>

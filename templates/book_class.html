@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Class</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/schedule">Schedule</a> |
+        <a href="/bookings">Bookings</a>
+        </nav>
+    <h1>Book Class: {{ class_item.name }}</h1>
+    <p>Date: {{ class_item.date }}</p>
+    <p>Time: {{ class_item.time }}</p>
+    <p>Location: {{ class_item.location }}</p>
+    <p>Capacity: {{ class_item.capacity }}</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flashes">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form action="/book" method="POST">
+        <input type="hidden" name="class_id" value="{{ class_item.id }}">
+        <label for="user_name">Your Name:</label><br>
+        <input type="text" id="user_name" name="user_name" required><br><br>
+        <label for="user_email">Your Email:</label><br>
+        <input type="email" id="user_email" name="user_email" required><br><br>
+        <label for="user_phone">Your Phone:</label><br>
+        <input type="tel" id="user_phone" name="user_phone" required><br><br>
+
+        <h2>Pre-Exercise Questionnaire</h2>
+        <label for="question1">Have you experienced chest pain during exercise? (yes/no):</label><br>
+        <select id="question1" name="question1" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label for="question2">Do you have any joint problems that might be aggravated by exercise? (yes/no):</label><br>
+        <select id="question2" name="question2" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label for="question3">Are you currently taking any medication for a heart condition? (yes/no):</label><br>
+        <select id="question3" name="question3" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <input type="submit" value="Book Now">
+    </form>
+</body>
+
+</html>
